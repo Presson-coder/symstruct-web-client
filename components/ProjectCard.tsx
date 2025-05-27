@@ -54,7 +54,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         fullScreen
         onClose={() => setOpen(false)}
         slots={{
-          transition: Transition, 
+          transition: Transition,
         }}
         slotProps={{
           paper: {
@@ -70,12 +70,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               maxHeight: "90vh",
               width: "100vw",
               background: "#fff",
+              display: "flex",
+              flexDirection: "column",
             },
           },
         }}
         hideBackdrop={false}
       >
-        <div className="relative h-full flex flex-col p-40 pl-40">
+        <div className="relative flex flex-col flex-1 overflow-hidden p-20">
           <IconButton
             aria-label="close"
             onClick={() => setOpen(false)}
@@ -83,6 +85,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           >
             <CloseIcon />
           </IconButton>
+
           <div className="h-96 w-full bg-gray-100 flex items-center justify-center rounded-t-2xl overflow-hidden">
             <Carousel className="w-full h-full">
               <CarouselContent>
@@ -90,21 +93,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                   project.Images.map((img: string, idx: number) => (
                     <CarouselItem
                       key={idx}
-                      className="w-full h-96 flex items-center justify-center"
+                      className="w-full h-96 flex items-center justify-center rounded-2xl"
                     >
                       <img
                         src={img}
                         alt={`${project.Name} image ${idx + 1}`}
-                        className="object-cover w-full h-full"
+                        className="object-cover w-full h-full rounded-2xl"
                       />
                     </CarouselItem>
                   ))
                 ) : (
-                  <CarouselItem className="w-full h-96 flex items-center justify-center">
+                  <CarouselItem className="w-full h-96 flex items-center justify-center rounded-2xl">
                     <img
                       src="/heroImage.jpg"
                       alt={project.Name}
-                      className="object-cover w-full h-full"
+                      className="object-cover w-full h-full rounded-2xl"
                     />
                   </CarouselItem>
                 )}
@@ -113,12 +116,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white text-black rounded-full shadow p-2" />
             </Carousel>
           </div>
+
           <div className="p-6 overflow-y-auto flex-1">
             <h2 className="font-bold text-2xl mb-2">{project.Name}</h2>
             <p className="text-gray-700 mb-4">{project.Description}</p>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-gray-500 space-y-2">
               <div>
-                <strong>Location:</strong>
+                <strong>Location:</strong>{" "}
                 {`${project.Location.city} ${project.Location.country}`}
               </div>
               <div>
