@@ -24,10 +24,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
     <>
       <div
-        className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition"
+        className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition aspect-square flex flex-col"
         onClick={() => setOpen(true)}
       >
-        <div className="h-48 w-full bg-gray-100 flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center bg-gray-100">
           {project.Images && project.Images.length > 0 ? (
             <img
               src={project.Images[0]}
@@ -39,7 +39,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           )}
         </div>
         <div className="p-4">
-          <h3 className="font-semibold text-lg">{project.Name}</h3>
+          <h3 className="font-semibold text-gray-700 text-lg">{project.Name}</h3>
           <p className="text-gray-600 text-sm line-clamp-2">
             {project.Description}
           </p>

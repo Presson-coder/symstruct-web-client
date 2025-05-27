@@ -124,7 +124,7 @@ const Navbar = () => {
           >
             HOME
           </Link>
-          <Link
+          {/* <Link
             href="#about"
             onClick={handleScroll}
             className={
@@ -138,7 +138,7 @@ const Navbar = () => {
             }
           >
             ABOUT
-          </Link>
+          </Link> */}
           <Link
             href="#shop-online"
             onClick={handleScroll}
@@ -152,7 +152,7 @@ const Navbar = () => {
                   } `
             }
           >
-            SHOP ONLINE
+           PROJECTS
           </Link>
           <Link
             href="#contact"

@@ -9,7 +9,8 @@ const Home = () => {
       <Navbar />
       <span className=""></span>
       <HomeHero />
-      <Projects />
+      <span className=""></span>
+     
     </div>
   );
 };
