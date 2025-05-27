@@ -22,24 +22,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <>
+    <div className="w-[] h-96">
       <div
-        className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition aspect-square flex flex-col"
+        className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition w-full h-full flex flex-col"
         onClick={() => setOpen(true)}
       >
-        <div className="flex-1 flex items-center justify-center bg-gray-100">
-          {project.Images && project.Images.length > 0 ? (
-            <img
-              src={project.Images[0]}
-              alt={project.Name}
-              className="object-cover h-full w-full"
-            />
-          ) : (
-            <span className="text-gray-400">No Image</span>
-          )}
+        <div className="h-64 flex items-center justify-center bg-gray-100">
+          <img
+            src={project.Images[0] ?? "/heroImage.jpg"}
+            alt={project.Name}
+            className="object-cover h-full w-full"
+          />
         </div>
         <div className="p-4">
-          <h3 className="font-semibold text-gray-700 text-lg">{project.Name}</h3>
+          <h3 className="font-medium text-gray-700 text-lg">{project.Name}</h3>
           <p className="text-gray-600 text-sm line-clamp-2">
             {project.Description}
           </p>
@@ -92,7 +88,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             <p className="text-gray-700 mb-4">{project.Description}</p>
             <div className="text-sm text-gray-500">
               <div>
-                <strong>Location:</strong>{`${project.Location.city} ${project.Location.country}`}
+                <strong>Location:</strong>
+                {`${project.Location.city} ${project.Location.country}`}
               </div>
               <div>
                 <strong>Categories:</strong>{" "}
@@ -114,7 +111,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           </div>
         </div>
       </Dialog>
-    </>
+    </div>
   );
 };
 
