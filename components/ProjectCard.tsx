@@ -51,28 +51,31 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       </div>
       <Dialog
         open={open}
+        fullScreen
         onClose={() => setOpen(false)}
-        TransitionComponent={Transition}
-        PaperProps={{
-          sx: {
-            position: "fixed",
-            m: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            borderTopLeftRadius: 24,
-            borderTopRightRadius: 24,
-            height: "75vh",
-            maxHeight: "75vh",
-            width: "100%",
-            margin: "0 auto",
-            background: "#fff",
+        slots={{
+          transition: Transition, 
+        }}
+        slotProps={{
+          paper: {
+            sx: {
+              position: "fixed",
+              m: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              borderTopLeftRadius: 24,
+              borderTopRightRadius: 24,
+              height: "90vh",
+              maxHeight: "90vh",
+              width: "100vw",
+              background: "#fff",
+            },
           },
         }}
         hideBackdrop={false}
-        fullWidth
       >
-        <div className="relative h-full flex flex-col">
+        <div className="relative h-full flex flex-col p-40 pl-40">
           <IconButton
             aria-label="close"
             onClick={() => setOpen(false)}
@@ -80,14 +83,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           >
             <CloseIcon />
           </IconButton>
-          <div className="h-56 w-full bg-gray-100 flex items-center justify-center rounded-t-2xl overflow-hidden">
+          <div className="h-96 w-full bg-gray-100 flex items-center justify-center rounded-t-2xl overflow-hidden">
             <Carousel className="w-full h-full">
               <CarouselContent>
                 {project.Images && project.Images.length > 0 ? (
                   project.Images.map((img: string, idx: number) => (
                     <CarouselItem
                       key={idx}
-                      className="w-full h-56 flex items-center justify-center"
+                      className="w-full h-96 flex items-center justify-center"
                     >
                       <img
                         src={img}
@@ -97,7 +100,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                     </CarouselItem>
                   ))
                 ) : (
-                  <CarouselItem className="w-full h-56 flex items-center justify-center">
+                  <CarouselItem className="w-full h-96 flex items-center justify-center">
                     <img
                       src="/heroImage.jpg"
                       alt={project.Name}
@@ -106,8 +109,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                   </CarouselItem>
                 )}
               </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
+              <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white text-black rounded-full shadow p-2" />
+              <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white text-black rounded-full shadow p-2" />
             </Carousel>
           </div>
           <div className="p-6 overflow-y-auto flex-1">
