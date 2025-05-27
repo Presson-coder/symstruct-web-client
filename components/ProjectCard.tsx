@@ -6,6 +6,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import { Project } from "@/types/Project";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "./ui/carousel";
+
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children: React.ReactElement },
@@ -73,15 +81,34 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             <CloseIcon />
           </IconButton>
           <div className="h-56 w-full bg-gray-100 flex items-center justify-center rounded-t-2xl overflow-hidden">
-            {project.Images && project.Images.length > 0 ? (
-              <img
-                src={project.Images[0]}
-                alt={project.Name}
-                className="object-cover h-full w-full"
-              />
-            ) : (
-              <span className="text-gray-400">No Image</span>
-            )}
+            <Carousel className="w-full h-full">
+              <CarouselContent>
+                {project.Images && project.Images.length > 0 ? (
+                  project.Images.map((img: string, idx: number) => (
+                    <CarouselItem
+                      key={idx}
+                      className="w-full h-56 flex items-center justify-center"
+                    >
+                      <img
+                        src={img}
+                        alt={`${project.Name} image ${idx + 1}`}
+                        className="object-cover w-full h-full"
+                      />
+                    </CarouselItem>
+                  ))
+                ) : (
+                  <CarouselItem className="w-full h-56 flex items-center justify-center">
+                    <img
+                      src="/heroImage.jpg"
+                      alt={project.Name}
+                      className="object-cover w-full h-full"
+                    />
+                  </CarouselItem>
+                )}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           </div>
           <div className="p-6 overflow-y-auto flex-1">
             <h2 className="font-bold text-2xl mb-2">{project.Name}</h2>
