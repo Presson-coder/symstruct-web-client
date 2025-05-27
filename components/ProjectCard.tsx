@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
@@ -13,7 +13,6 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "./ui/carousel";
-
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children: React.ReactElement },
@@ -93,21 +92,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                   project.Images.map((img: string, idx: number) => (
                     <CarouselItem
                       key={idx}
-                      className="w-full h-96 flex items-center justify-center rounded-2xl"
+                      className="w-full h-96 flex items-center justify-center rounded-t-2xl"
                     >
                       <img
                         src={img}
                         alt={`${project.Name} image ${idx + 1}`}
-                        className="object-cover w-full h-full rounded-2xl"
+                        className="object-cover w-full h-full rounded-t-2xl"
                       />
                     </CarouselItem>
                   ))
                 ) : (
-                  <CarouselItem className="w-full h-96 flex items-center justify-center rounded-2xl">
+                  <CarouselItem className="w-full h-96 flex items-center justify-center rounded-t-2xl">
                     <img
                       src="/heroImage.jpg"
                       alt={project.Name}
-                      className="object-cover w-full h-full rounded-2xl"
+                      className="object-cover w-full h-full rounded-t-2xl"
                     />
                   </CarouselItem>
                 )}
@@ -117,31 +116,39 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             </Carousel>
           </div>
 
-          <div className="p-6 overflow-y-auto flex-1">
-            <h2 className="font-bold text-2xl mb-2">{project.Name}</h2>
-            <p className="text-gray-700 mb-4">{project.Description}</p>
-            <div className="text-sm text-gray-500 space-y-2">
-              <div>
-                <strong>Location:</strong>{" "}
-                {`${project.Location.city} ${project.Location.country}`}
-              </div>
-              <div>
-                <strong>Categories:</strong>{" "}
-                {project.Categories?.join(", ") || "N/A"}
-              </div>
-              <div>
-                <strong>Duration:</strong> {project.Duration} days
-              </div>
-              <div>
-                <strong>Status:</strong> {project.Status || "N/A"}
-              </div>
-              <div>
-                <strong>Completion Date:</strong>{" "}
-                {project.CompletionDate
-                  ? new Date(project.CompletionDate).toLocaleDateString()
-                  : "N/A"}
-              </div>
-            </div>
+          <div className="p-6 flex-1 overflow-y-auto bg-gray-50 rounded-b-2xl">
+            <header className="border-b border-gray-200 pb-4 mb-6">
+              <h2 className="text-3xl font-semibold text-gray-800">
+                {project.Name}
+              </h2>
+            </header>
+
+            <section className="prose prose-gray max-w-none mb-6">
+              <p>{project.Description}</p>
+            </section>
+
+            <section className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm text-gray-700 ">
+              <dl className="flex flex-col">
+                <dt className="font-medium text-gray-900">Location</dt>
+                <dd>
+                  {project.Location.city}, {project.Location.country}
+                </dd>
+              </dl>
+
+              <dl className="flex flex-col">
+                <dt className="font-medium text-gray-900">Duration</dt>
+                <dd>{project.Duration} days</dd>
+              </dl>
+
+              <dl className="flex flex-col">
+                <dt className="font-medium text-gray-900">Completion Date</dt>
+                <dd>
+                  {project.CompletionDate
+                    ? new Date(project.CompletionDate).toLocaleDateString()
+                    : "N/A"}
+                </dd>
+              </dl>
+            </section>
           </div>
         </div>
       </Dialog>
