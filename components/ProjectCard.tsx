@@ -13,6 +13,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "./ui/carousel";
+import { Button } from "@/components/ui/button";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children: React.ReactElement },
@@ -148,6 +149,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                     : "N/A"}
                 </dd>
               </dl>
+
+            </section>
+            <section>
+            
             </section>
           </div>
         </div>
