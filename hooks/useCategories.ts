@@ -9,6 +9,6 @@ export const useCategories = () => {
 
  const fetchCategories = () => {
     setLoading(true);
-    axios.get(`${}`)
+    axios.get(`${B}`)
  }
 }

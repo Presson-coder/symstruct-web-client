@@ -1,9 +1,9 @@
 import { BACKEND_URL } from "@/constants/connection";
-import axios from "axios";
+import axiosInstance from "@/utils/axiosInstance";
 
 export async function getCategories() {
   try {
-    const response = await axios.get(`${BACKEND_URL}categories`);
+    const response = await axiosInstance.get(`${BACKEND_URL}categories`);
     return response.data;
   } catch (error) {
     console.error("Error fetching categories:", error);
