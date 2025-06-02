@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Home from "./home/page";
 import Projects from "./projects/page";
+import ProjectCategoryFilter from "@/components/ProjectCategoryFilter";
 
 export default function Index() {
   return (
@@ -31,6 +32,7 @@ export default function Index() {
             </button>
           </form>
         </div>
+        <ProjectCategoryFilter/>
         <Projects />
       </div>
     </div>
