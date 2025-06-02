@@ -1,9 +1,13 @@
 import { BACKEND_URL } from "@/constants/connection";
 import axios from "axios";
 
-export async function getProjects() {
+export async function getProjects({category}: { category?: string } = {}) {
   try {
-    const response = await axios.get(`${BACKEND_URL}projects`);
+    const response = await axios.get(`${BACKEND_URL}projects`, {
+      params: {
+        category: category ?? undefined,
+      }
+    });
     return response.data.projects;
   } catch (error) {
     console.error("Error fetching projects:", error);
