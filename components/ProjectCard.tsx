@@ -14,6 +14,8 @@ import {
   CarouselNext,
 } from "./ui/carousel";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { FaBookmark } from "react-icons/fa";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children: React.ReactElement },
@@ -85,6 +87,33 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           >
             <CloseIcon />
           </IconButton>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-4">
+              <Image
+                src="/logo.jpeg"
+                alt="Logo"
+                width={100}
+                height={100}
+                className="rounded-full w-20 h-20 object-contain"
+              />{" "}
+              <p>Available For Work</p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                className="bg-white text-gray-800 hover:bg-gray-100 border-gray-300 rounded-full p-2 shadow-sm w-10 h-10 flex items-center justify-center cursor-pointer transition duration-300 hover:shadow-md"
+              >
+                <FaBookmark />
+              </Button>
+              <Button
+                variant="outline"
+                className="bg-black text-white hover:bg-gray-800 hover:text-white rounded-2xl"
+              >
+                Get In Touch
+              </Button>
+            </div>
+          </div>
 
           <div className="h-96 w-full bg-gray-100 flex items-center justify-center rounded-t-2xl overflow-hidden">
             <Carousel className="w-full h-full">
@@ -149,11 +178,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                     : "N/A"}
                 </dd>
               </dl>
-
             </section>
-            <section>
-            
-            </section>
+            <section></section>
           </div>
         </div>
       </Dialog>
