@@ -32,7 +32,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="w-[] h-96">
+    <div className="w-[] min-h-96">
       <div
         className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition w-full h-full flex flex-col"
         onClick={() => setOpen(true)}
@@ -51,6 +51,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           </p>
         </div>
       </div>
+      {open && (
+        <IconButton
+          aria-label="close"
+          onClick={() => setOpen(false)}
+          sx={{
+            position: "fixed",
+            top: 32,
+            right: 32,
+            zIndex: 1401,
+            background: "#fff",
+            boxShadow: 3,
+            "&:hover": { background: "#f3f4f6" },
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      )}
       <Dialog
         open={open}
         fullScreen
@@ -79,14 +96,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         }}
         hideBackdrop={false}
       >
-        <div className="relative flex flex-col flex-1 overflow-hidden p-20">
-          <IconButton
-            aria-label="close"
-            onClick={() => setOpen(false)}
-            sx={{ position: "absolute", top: 8, right: 8, zIndex: 10 }}
-          >
-            <CloseIcon />
-          </IconButton>
+        <div className="relative flex flex-col flex-1 overflow-hidden p-20 overflow-y-auto">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
               <Image
@@ -115,7 +125,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             </div>
           </div>
 
-          <div className="h-96 w-full bg-gray-100 flex items-center justify-center rounded-t-2xl overflow-hidden">
+          <div className="min-h-96 w-full bg-gray-100 flex items-center justify-center rounded-t-2xl overflow-hidden">
             <Carousel className="w-full h-full">
               <CarouselContent>
                 {project.Images && project.Images.length > 0 ? (
@@ -146,7 +156,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             </Carousel>
           </div>
 
-          <div className="p-6 flex-1 overflow-y-auto bg-gray-50 rounded-b-2xl">
+          <div className="p-6  bg-gray-50 rounded-b-2xl">
             <header className="border-b border-gray-200 pb-4 mb-6">
               <h2 className="text-3xl font-semibold text-gray-800">
                 {project.Name}
