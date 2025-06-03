@@ -2,6 +2,7 @@ import { getProjects } from "@/lib/getProjects";
 import ProjectCard from "@/components/ProjectCard";
 import { Project } from "@/types/Project";
 import ProjectCategoryFilter from "@/components/ProjectCategoryFilter";
+import { FaSearch } from "react-icons/fa";
 
 interface ProjectsProps {
   searchParams: { category?: string };
@@ -27,7 +28,7 @@ const Projects = async ({ searchParams }: ProjectsProps) => {
             type="submit"
             className="absolute top-[0] end-[0] h-12 inline-flex items-center px-8 py-2.5 text-[16px] font-medium tracking-wide bg-orange-500 hover:bg-orange-600 border border-orange-500 hover:border-orange-600 text-white focus:ring-[3px] focus:ring-orange-500 focus:ring-opacity-25 focus:outline-none rounded-e-2xl align-middle transition-all duration-500"
           >
-            {/* <FaSearch className="me-1" /> Search */}
+            <FaSearch className="me-1" /> Search
           </button>
         </form>
       </div>

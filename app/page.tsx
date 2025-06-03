@@ -10,7 +10,7 @@ export default function Index() {
           <Home />
         </div>
       </div>
-      <div className="min-h-screen py-20 bg-gradient-to-b from-gray-100 to-gray-50">
+      <div className="min-h-screen py-10 bg-gradient-to-b from-gray-100 to-gray-50">
         <Projects searchParams={{}} />
       </div>
     </div>
