@@ -16,14 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { FaBookmark } from "react-icons/fa";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "./ui/input";
+import BookingForm from "./BookingForm";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children: React.ReactElement },
@@ -39,12 +32,7 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [open, setOpen] = useState(false);
   const [bookingFormOpen, setBookingFormOpen] = useState(false);
-  const targetDateOptions = [
-    "Within the next few days",
-    "Within the next week",
-    "In a month or more",
-    "Not sure yet",
-  ];
+
 
   const handleBookingFormOpen = () => {
     setBookingFormOpen(true);
@@ -141,7 +129,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               </Button>
               <Button
                 variant="outline"
-                className="bg-black text-white hover:bg-gray-800 hover:text-white rounded-2xl"
+                className="bg-black text-white hover:bg-gray-800 hover:text-white rounded-2xl cursor-pointer"
                 onClick={handleBookingFormOpen}
                 // style={{ padding: "10px 20px" }}
               >
@@ -224,59 +212,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           onClose={handleBookingFormClose}
           fullWidth
           maxWidth="sm"
+          className="rounded-2xl"
         >
           <div className="p-6">
             <h2 className="text-2xl font-semibold mb-4">Get In Touch</h2>
-            <form>
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-2">
-                  Project Description
-                </label>
-                <textarea
-                  rows={4}
-                  className="w-full p-2 border border-gray-300 rounded-md"
-                  required
-                ></textarea>
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-2">
-                  Project Target Date
-                </label>
-                <div className="w-full">
-                  <Select>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Target Date" />
-                    </SelectTrigger>
-                    <SelectContent className="z-[2000]">
-                      {targetDateOptions.map((option, index) => (
-                        <SelectItem key={index} value={option}>
-                          {option}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-2">
-                  Project Budget
-                </label>
-                <input
-                  type="number"
-                  className="w-full p-2 border border-gray-300 rounded-md"
-                  placeholder="Enter your budget"
-                  required
-                  min={0} 
-                />
-              </div>
-              <Button
-                type="submit"
-                // variant="solid"
-                className="bg-black text-white hover:bg-gray-800 w-full"
-              >
-                Submit
-              </Button>
-            </form>
+           <BookingForm/>
           </div>
         </Dialog>
       )}
