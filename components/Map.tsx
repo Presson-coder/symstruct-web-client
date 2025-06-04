@@ -95,7 +95,7 @@ const Map: React.FC<MapProps> = ({
           top: 60,
           left: "50%",
           transform: "translateX(-50%)",
-          zIndex: 10,
+          zIndex: 2000,
           width: "80%",
           padding: "8px",
           fontSize: "16px",

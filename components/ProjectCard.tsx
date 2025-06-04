@@ -106,7 +106,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         }}
         hideBackdrop={false}
       >
-        <div className="relative flex flex-col flex-1 overflow-hidden p-20 overflow-y-auto">
+        <div className="relative flex flex-col flex-1 p-20">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
               <Image
@@ -137,7 +137,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             </div>
           </div>
 
-          <div className="min-h-96 w-full bg-gray-100 flex items-center justify-center rounded-t-2xl overflow-hidden">
+          <div className="min-h-96 w-full bg-gray-100 flex items-center justify-center rounded-t-2xl overflow-visible">
             <Carousel className="w-full h-full">
               <CarouselContent>
                 {project.Images && project.Images.length > 0 ? (
@@ -202,6 +202,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               </dl>
             </section>
             <section></section>
+          </div>
+
+          <div>
+            <h3>More by</h3>
           </div>
         </div>
       </Dialog>

@@ -13,16 +13,14 @@ import { Library } from "@googlemaps/js-api-loader";
 import { useLoadScript } from "@react-google-maps/api";
 import { ClientProject } from "@/types";
 import { useSubmitBooking } from "@/hooks/useSubmitBooking";
+import { GOOGLE_API_KEY } from "@/constants/connection";
+import Autocomplete from "react-google-autocomplete";
 
-const libraries = ["places"];
+// const libraries = ["places"];
 
 const BookingForm = () => {
   const { loading, submitBooking } = useSubmitBooking();
-  const google_api_key = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: google_api_key || "",
-    libraries: libraries as unknown as Library[],
-  });
+
   const [bookingData, setBookingData] = useState<ClientProject>({
     serviceProviderId: "",
     clientId: "",
@@ -93,7 +91,7 @@ const BookingForm = () => {
 
   return (
     <div>
-      <form>
+      <div>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">
             Project Description
@@ -135,15 +133,17 @@ const BookingForm = () => {
             min={0}
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 w-full">
           <label className="block text-sm font-medium mb-2">
             Project Location
           </label>
-          <div className="w-full h-64 relative">
-            <Map
-              onPlaceSelect={handlePlaceSelect}
-              locationCoordinates={mapCoordinates}
-              onLocationChange={handleMapClick}
+          <div className="w-full relative">
+            <Autocomplete
+              apiKey={GOOGLE_API_KEY || ""}
+              onPlaceSelected={(place) => {
+                console.log(place);
+              }}
+              className="w-full border border-gray-200 rounded p-2"
             />
           </div>
         </div>
@@ -154,7 +154,7 @@ const BookingForm = () => {
         >
           Submit
         </Button>
-      </form>
+      </div>
     </div>
   );
 };

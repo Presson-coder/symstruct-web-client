@@ -14,3 +14,12 @@ export async function getProjects({category}: { category?: string } = {}) {
     throw new Error("Failed to fetch projects");
   }
 }
+
+
+export const getProjectsByServiceProvider = async () => {
+  try {
+    const response = await axios.get
+  } catch (error) {
+    
+  }
+}
