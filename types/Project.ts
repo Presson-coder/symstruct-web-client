@@ -20,3 +20,12 @@ export interface Location {
   name?: string;
   details?: string;
 }
+
+export interface ClientProject {
+  serviceProviderId: string;
+  clientId: string;
+  projectDescription: string;
+  projectBudget: number;
+  projectTargetDate: Date;
+  projectLocation: Location;
+}

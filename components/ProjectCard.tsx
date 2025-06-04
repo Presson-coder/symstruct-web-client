@@ -32,8 +32,7 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [open, setOpen] = useState(false);
   const [bookingFormOpen, setBookingFormOpen] = useState(false);
-
-
+  console.log("ProjectCard rendered with project ::", project);
   const handleBookingFormOpen = () => {
     setBookingFormOpen(true);
   };
