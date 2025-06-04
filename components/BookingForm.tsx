@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Select,
@@ -12,15 +12,77 @@ import Map from "./Map";
 import { Library } from "@googlemaps/js-api-loader";
 import { useLoadScript } from "@react-google-maps/api";
 import { ClientProject } from "@/types";
+import { useSubmitBooking } from "@/hooks/useSubmitBooking";
 
 const libraries = ["places"];
 
 const BookingForm = () => {
+  const { loading, submitBooking } = useSubmitBooking();
   const google_api_key = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: google_api_key || "",
     libraries: libraries as unknown as Library[],
   });
+  const [bookingData, setBookingData] = useState<ClientProject>({
+    serviceProviderId: "",
+    clientId: "",
+    projectDescription: "",
+    projectBudget: 0,
+    projectTargetDate: "Within the next few days",
+    projectLocation: {
+      lat: 0,
+      lng: 0,
+      city: "",
+      country: "",
+      addressLine1: "",
+    },
+  });
+
+  const onBookingDataChange = (data: ClientProject) => {
+    setBookingData(data);
+  };
+
+  const handlePlaceSelect = (details: {
+    lat: number;
+    lng: number;
+    city: string;
+    country: string;
+    addressLine1: string;
+  }) => {
+    if (bookingData) {
+      const updatedLocation = {
+        ...bookingData.projectLocation,
+        lat: details.lat,
+        lng: details.lng,
+        city: details.city,
+        country: details.country,
+        addressLine1: details.addressLine1,
+      };
+      onBookingDataChange({
+        ...bookingData,
+        projectLocation: updatedLocation,
+      });
+    }
+  };
+
+  const handleMapClick = (lat: number, lng: number) => {
+    if (bookingData) {
+      const updatedLocation = {
+        ...bookingData.projectLocation,
+        lat,
+        lng,
+      };
+      onBookingDataChange({
+        ...bookingData,
+        projectLocation: updatedLocation,
+      });
+    }
+  };
+
+  const mapCoordinates = {
+    lat: bookingData.projectLocation.lat || -18.9712,
+    lng: bookingData.projectLocation.lng || 25.9749,
+  };
 
   const targetDateOptions = [
     "Within the next few days",
@@ -28,7 +90,6 @@ const BookingForm = () => {
     "In a month or more",
     "Not sure yet",
   ];
-  
 
   return (
     <div>

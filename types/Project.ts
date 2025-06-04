@@ -26,6 +26,10 @@ export interface ClientProject {
   clientId: string;
   projectDescription: string;
   projectBudget: number;
-  projectTargetDate: Date;
+  projectTargetDate:
+    | "Within the next few days"
+    | "Within the next week"
+    | "In a month or more"
+    | "Not sure yet";
   projectLocation: Location;
 }

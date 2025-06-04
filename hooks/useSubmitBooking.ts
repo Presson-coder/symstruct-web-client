@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ClientProject } from "@/types";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { BACKEND_URL, BOOKING_URL } from "@/constants/connection";
+import { BOOKING_URL } from "@/constants/connection";
 
 export const useSubmitBooking = () => {
   const [loading, setLoading] = useState(false);
