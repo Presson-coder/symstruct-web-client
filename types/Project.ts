@@ -1,5 +1,6 @@
 export interface Project {
   _id?: string;
+  owner: ProjectOwner;
   Name: string;
   Description: string;
   Location: Location;
@@ -8,6 +9,11 @@ export interface Project {
   CompletionDate: Date | string;
   Images: string[] | any;
   Status?: string;
+}
+
+export interface ProjectOwner {
+  _id: string;
+  name: string;
 }
 
 export interface Location {

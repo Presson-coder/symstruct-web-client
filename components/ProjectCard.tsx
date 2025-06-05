@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
@@ -17,6 +17,8 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { FaBookmark } from "react-icons/fa";
 import BookingForm from "./BookingForm";
+import { getProjectsByServiceProvider } from "@/lib/getProjects";
+import MoreProjectsByServiceProvider from "./MoreProjectsByServiceProvider";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children: React.ReactElement },
@@ -32,6 +34,23 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [open, setOpen] = useState(false);
   const [bookingFormOpen, setBookingFormOpen] = useState(false);
+  const [moreProjectsByServiceProvider, setMoreProjectsByServiceProvider] =
+    useState<Project[]>();
+
+  const getMoreProjects = async () => {
+    try {
+      const projects = await getProjectsByServiceProvider({
+        id: project?.owner?._id,
+      });
+      setMoreProjectsByServiceProvider(projects);
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
+  useEffect(() => {
+    getMoreProjects();
+  }, []);
+
   console.log("ProjectCard rendered with project ::", project);
   const handleBookingFormOpen = () => {
     setBookingFormOpen(true);
@@ -203,10 +222,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             </section>
             <section></section>
           </div>
-
-          <div>
-            <h3>More by</h3>
+          <div className="flex items-center my-8">
+            <hr className="flex-grow border-t border-gray-300" />
+            <span className="mx-4 text-lg text-gray-800 whitespace-nowrap">
+              More Projects by {project.owner.name || "Service Provider"}
+            </span>
+            <hr className="flex-grow border-t border-gray-300" />
           </div>
+          <MoreProjectsByServiceProvider
+            projects={
+              moreProjectsByServiceProvider ? moreProjectsByServiceProvider : []
+            }
+          />
         </div>
       </Dialog>
       {bookingFormOpen && (
@@ -219,7 +246,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         >
           <div className="p-6">
             <h2 className="text-2xl font-semibold mb-4">Get In Touch</h2>
-           <BookingForm/>
+            <BookingForm />
           </div>
         </Dialog>
       )}
