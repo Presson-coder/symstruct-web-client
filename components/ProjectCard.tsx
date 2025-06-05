@@ -42,14 +42,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       const projects = await getProjectsByServiceProvider({
         id: project?.owner?._id,
       });
-      setMoreProjectsByServiceProvider(projects);
+      setMoreProjectsByServiceProvider(
+        projects.filter(
+          (fetechedProjects: Project) => fetechedProjects._id !== project._id
+        )
+      );
     } catch (error) {
       console.log("error: ", error);
     }
   };
   useEffect(() => {
     getMoreProjects();
-  }, []);
+  }, [project?.owner?._id]);
 
   console.log("ProjectCard rendered with project ::", project);
   const handleBookingFormOpen = () => {
@@ -222,13 +226,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             </section>
             <section></section>
           </div>
-          <div className="flex items-center my-8">
-            <hr className="flex-grow border-t border-gray-300" />
-            <span className="mx-4 text-lg text-gray-800 whitespace-nowrap">
-              More Projects by {project.owner.name || "Service Provider"}
-            </span>
-            <hr className="flex-grow border-t border-gray-300" />
-          </div>
+          {moreProjectsByServiceProvider?.length !== 0 && (
+            <div className="flex items-center my-8">
+              <hr className="flex-grow border-t border-gray-300" />
+              <span className="mx-4 text-lg text-gray-800 whitespace-nowrap">
+                More Projects by {project.owner.name || "Service Provider"}
+              </span>
+              <hr className="flex-grow border-t border-gray-300" />
+            </div>
+          )}
           <MoreProjectsByServiceProvider
             projects={
               moreProjectsByServiceProvider ? moreProjectsByServiceProvider : []
