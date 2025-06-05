@@ -38,6 +38,8 @@ const BookingForm = () => {
     },
   });
 
+  console.log("BookingForm rendered with bookingData ::", bookingData);
+
   const onBookingDataChange = (data: ClientProject) => {
     setBookingData(data);
   };
@@ -101,6 +103,14 @@ const BookingForm = () => {
           <textarea
             rows={4}
             className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Describe your project"
+            value={bookingData.projectDescription}
+            onChange={(e) =>
+              onBookingDataChange({
+                ...bookingData,
+                projectDescription: e.target.value,
+              })
+            }
             required
           ></textarea>
         </div>
@@ -109,7 +119,15 @@ const BookingForm = () => {
             Project Target Date
           </label>
           <div className="w-full">
-            <Select>
+            <Select
+              value={bookingData.projectTargetDate}
+              onValueChange={(value) =>
+                onBookingDataChange({
+                  ...bookingData,
+                  projectTargetDate: value as ClientProject["projectTargetDate"],
+                })
+              }
+            >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Target Date" />
               </SelectTrigger>
@@ -131,6 +149,12 @@ const BookingForm = () => {
             type="number"
             className="w-full p-2 border border-gray-300 rounded-md"
             placeholder="Enter your budget"
+            onChange={(e) =>
+              onBookingDataChange({
+                ...bookingData,
+                projectBudget: parseFloat(e.target.value),
+              })
+            }
             required
             min={0}
           />
