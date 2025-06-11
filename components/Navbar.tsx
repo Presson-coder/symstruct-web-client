@@ -78,14 +78,14 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 w-full transition-all duration-300 z-50  ${
         isScrolled
-          ? "bg-white shadow-md pt-0 text-custom-yellow "
+          ? "bg-white shadow-md pt-0 text-orange-500 "
           : "bg-transparent pt-10 "
       }`}
     >
       <div
         className={`md:flex hidden justify-between  ${
           isScrolled
-            ? " p-3 w-full"
+            ? " p-3 w-full items-center"
             : "container mx-auto px-20 items-center p-4"
         }`}
       >
@@ -118,8 +118,8 @@ const Navbar = () => {
             onClick={handleScroll}
             className={`${
               isScrolled
-                ? "text-black font-thin hover:text-custom-yellow duration-500"
-                : "text-white font-thin hover:text-custom-yellow duration-500"
+                ? "text-black font-thin hover:text-orange-500 duration-500"
+                : "text-white font-thin hover:text-orange-500 duration-500"
             } `}
           >
             HOME
@@ -129,11 +129,11 @@ const Navbar = () => {
             onClick={handleScroll}
             className={
               currentPage === "about"
-                ? "text-custom-yellow"
+                ? "text-orange-500"
                 : `${
                     isScrolled
-                      ? "text-black font-thin hover:text-custom-yellow duration-500"
-                      : "text-white font-thin hover:text-custom-yellow duration-500"
+                      ? "text-black font-thin hover:text-orange-500 duration-500"
+                      : "text-white font-thin hover:text-orange-500 duration-500"
                   } `
             }
           >
@@ -144,11 +144,11 @@ const Navbar = () => {
             onClick={handleScroll}
             className={
               currentPage === "shop-online"
-                ? "text-custom-yellow"
+                ? "text-orange-500"
                 : `${
                     isScrolled
-                      ? "text-black font-thin hover:text-custom-yellow duration-500"
-                      : "text-white font-thin hover:text-custom-yellow duration-500"
+                      ? "text-black font-thin hover:text-orange-500 duration-500"
+                      : "text-white font-thin hover:text-orange-500 duration-500"
                   } `
             }
           >
@@ -159,11 +159,11 @@ const Navbar = () => {
             onClick={handleScroll}
             className={
               currentPage === "contact"
-                ? "text-custom-yellow"
+                ? "text-orange-500"
                 : `${
                     isScrolled
-                      ? "text-black font-thin hover:text-custom-yellow duration-500"
-                      : "text-white font-thin hover:text-custom-yellow duration-500"
+                      ? "text-black font-thin hover:text-orange-500 duration-500"
+                      : "text-white font-thin hover:text-orange-500 duration-500"
                   } `
             }
           >
@@ -173,15 +173,29 @@ const Navbar = () => {
             href="/login"
             className={
               currentPage === "login"
-                ? "text-custom-yellow"
+                ? "text-orange-500"
                 : `${
                     isScrolled
-                      ? "text-black font-thin hover:text-custom-yellow duration-500"
-                      : "text-white font-thin hover:text-custom-yellow duration-500"
+                      ? "text-black font-thin hover:text-orange-500 duration-500"
+                      : "text-white font-thin hover:text-orange-500 duration-500"
                   } `
             }
           >
             LOGIN
+          </Link>
+          <Link
+            href="/register"
+            className={
+              currentPage === "register"
+                ? "text-orange-500"
+                : `${
+                    isScrolled
+                      ? "text-black font-thin hover:text-orange-500 duration-500"
+                      : "text-white font-thin hover:text-orange-500 duration-500"
+                  } `
+            }
+          >
+            REGISTER
           </Link>
         </div>
       </div>
@@ -193,7 +207,7 @@ const Navbar = () => {
             onClick={toogleMenu}
             data-collapse-toggle="navbar-default"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-custom-yellow rounded-lg md:hidden hover:bg-g focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-orange-500 rounded-lg md:hidden hover:bg-g focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-default"
             aria-expanded={isMenuOpen}
           >
@@ -217,7 +231,7 @@ const Navbar = () => {
           <p className="flex items-center justify-center mx-auto gap-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="icon icon-tabler icon-tabler-discount-check-filled text-custom-yellow"
+              className="icon icon-tabler icon-tabler-discount-check-filled text-orange-500"
               width="25"
               height="25"
               viewBox="0 0 24 24"
@@ -236,7 +250,7 @@ const Navbar = () => {
             </svg>
             <span
               className={`self-center text-base  whitespace-nowrap font-medium dark:text-white ${
-                isScrolled ? "text-custom-yellow" : "text-white"
+                isScrolled ? "text-orange-500" : "text-white"
               }`}
             >
               <span className="font-extralight">Talita</span> Fashions
@@ -248,7 +262,7 @@ const Navbar = () => {
             } w-full md:block md:w-auto`}
             id="navbar-default"
           >
-            <ul className="font-light flex flex-col p-2 md:p-0 mt-4 border border-gray-100 rounded-lg bg-custom-yellow md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="font-light flex flex-col p-2 md:p-0 mt-4 border border-gray-100 rounded-lg bg-orange-500 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
                 <Link
                   href="#home"
