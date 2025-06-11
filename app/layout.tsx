@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Provider } from "react-redux";
+import { store } from "@/store";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
@@ -28,8 +30,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <Toaster />
+        <Provider store={store}>
+          {children}
+          <Toaster />
+        </Provider>
       </body>
     </html>
   );
