@@ -1,12 +1,39 @@
 "use client";
+import { RootState } from "@/store";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { IoLogOutOutline } from "react-icons/io5";
+import { Button } from "./ui/button";
+import { logout } from "@/store/authSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const [isHydrated, setIsHydrated] = useState(false);
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
   const [isScrolled, setIsScrolled] = useState(false);
   const [currentPage, setCurrentPage] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isLoggedIn = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+  const userLastNameFirstLetter = useSelector(
+    (state: RootState) => state.auth.user?.lastName
+  )
+    ?.charAt(0)
+    .toUpperCase();
+  const userFirstNameFirstLetter = useSelector(
+    (state: RootState) => state.auth.user?.firstName
+  )
+    ?.charAt(0)
+    .toUpperCase();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   const toogleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -152,7 +179,7 @@ const Navbar = () => {
                   } `
             }
           >
-           PROJECTS
+            PROJECTS
           </Link>
           <Link
             href="#contact"
@@ -169,34 +196,60 @@ const Navbar = () => {
           >
             CONTACT US
           </Link>
-          <Link
-            href="/login"
-            className={
-              currentPage === "login"
-                ? "text-orange-500"
-                : `${
-                    isScrolled
-                      ? "text-black font-thin hover:text-orange-500 duration-500"
-                      : "text-white font-thin hover:text-orange-500 duration-500"
-                  } `
-            }
-          >
-            LOGIN
-          </Link>
-          <Link
-            href="/register"
-            className={
-              currentPage === "register"
-                ? "text-orange-500"
-                : `${
-                    isScrolled
-                      ? "text-black font-thin hover:text-orange-500 duration-500"
-                      : "text-white font-thin hover:text-orange-500 duration-500"
-                  } `
-            }
-          >
-            REGISTER
-          </Link>
+          {isHydrated ? (
+            isLoggedIn ? (
+              <>
+                {/* <div className="w-9 h-9 flex items-center justify-center rounded-full bg-orange-500 text-white font-semibold text-lg shadow">
+                  {userFirstNameFirstLetter}
+                  {userLastNameFirstLetter}
+                </div> */}
+                <div>
+                  <button
+                    onClick={handleLogout}
+                    className={`flex flex-row items-center cursor-pointer gap-1 ${
+                      isScrolled
+                        ? "text-black font-thin hover:text-orange-500 duration-500"
+                        : "text-white font-thin hover:text-orange-500 duration-500"
+                    }`}
+                  >
+                    <IoLogOutOutline />
+                    LOGOUT
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className={
+                    currentPage === "login"
+                      ? "text-orange-500"
+                      : `${
+                          isScrolled
+                            ? "text-black font-thin hover:text-orange-500 duration-500"
+                            : "text-white font-thin hover:text-orange-500 duration-500"
+                        } `
+                  }
+                >
+                  LOGIN
+                </Link>
+                <Link
+                  href="/register"
+                  className={
+                    currentPage === "register"
+                      ? "text-orange-500"
+                      : `${
+                          isScrolled
+                            ? "text-black font-thin hover:text-orange-500 duration-500"
+                            : "text-white font-thin hover:text-orange-500 duration-500"
+                        } `
+                  }
+                >
+                  REGISTER
+                </Link>
+              </>
+            )
+          ) : null}
         </div>
       </div>
 

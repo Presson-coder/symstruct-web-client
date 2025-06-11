@@ -7,11 +7,27 @@ interface AuthState {
   loading: boolean;
 }
 
-const initialState: AuthState = {
-  user: null,
-  isAuthenticated: false,
-  loading: false,
+const loadState = (): AuthState => {
+  try {
+    const serializedState = localStorage.getItem("authState");
+    if (serializedState === null) {
+      return {
+        user: null,
+        isAuthenticated: false,
+        loading: false,
+      };
+    }
+    return JSON.parse(serializedState);
+  } catch (error) {
+    return {
+      user: null,
+      isAuthenticated: false,
+      loading: false,
+    };
+  }
 };
+
+const initialState: AuthState = loadState();
 
 const authSlice = createSlice({
   name: "auth",
@@ -21,11 +37,13 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.isAuthenticated = true;
       state.loading = false;
+      localStorage.setItem("authState", JSON.stringify(state));
     },
     logout(state) {
       state.user = null;
       state.isAuthenticated = false;
       state.loading = false;
+        localStorage.removeItem("authState");
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
