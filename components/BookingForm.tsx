@@ -29,9 +29,8 @@ const BookingForm = () => {
   const [bookingData, setBookingData] = useState<ClientProject>({
     serviceProviderId: "",
     clientId: userId || "",
-    projectDescription: "",
-    projectBudget: 0,
-    projectTargetDate: "Within the next few days",
+    clientProjectDetails: { projectDescription: "", projectBudget: 0 },
+    projectTargetDate: "WITHIN_NEXT_FEW_DAYS",
     projectLocation: {
       lat: 0,
       lng: 0,
@@ -90,10 +89,10 @@ const BookingForm = () => {
   };
 
   const targetDateOptions = [
-    "Within the next few days",
-    "Within the next week",
-    "In a month or more",
-    "Not sure yet",
+    { label: "Within the next few days", value: "WITHIN_NEXT_FEW_DAYS" },
+    { label: "Within the next week", value: "WITHIN_NEXT_WEEK" },
+    { label: "In a month or more", value: "IN_A_MONTH_OR_MORE" },
+    { label: "Not sure yet", value: "NOT_SURE_YET" },
   ];
 
   return (
@@ -107,11 +106,14 @@ const BookingForm = () => {
             rows={4}
             className="w-full p-2 border border-gray-300 rounded-md"
             placeholder="Describe your project"
-            value={bookingData.projectDescription}
+            value={bookingData.clientProjectDetails.projectDescription}
             onChange={(e) =>
               onBookingDataChange({
                 ...bookingData,
-                projectDescription: e.target.value,
+                clientProjectDetails: {
+                  ...bookingData.clientProjectDetails,
+                  projectDescription: e.target.value,
+                },
               })
             }
             required
@@ -127,7 +129,8 @@ const BookingForm = () => {
               onValueChange={(value) =>
                 onBookingDataChange({
                   ...bookingData,
-                  projectTargetDate: value as ClientProject["projectTargetDate"],
+                  projectTargetDate:
+                    value as ClientProject["projectTargetDate"],
                 })
               }
             >
@@ -136,8 +139,8 @@ const BookingForm = () => {
               </SelectTrigger>
               <SelectContent className="z-[2000]">
                 {targetDateOptions.map((option, index) => (
-                  <SelectItem key={index} value={option}>
-                    {option}
+                  <SelectItem key={index} value={option.value}>
+                    {option.label}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -155,7 +158,10 @@ const BookingForm = () => {
             onChange={(e) =>
               onBookingDataChange({
                 ...bookingData,
-                projectBudget: parseFloat(e.target.value),
+                clientProjectDetails: {
+                  ...bookingData.clientProjectDetails,
+                  projectBudget: parseFloat(e.target.value),
+                },
               })
             }
             required

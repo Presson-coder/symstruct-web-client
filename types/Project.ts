@@ -30,12 +30,14 @@ export interface Location {
 export interface ClientProject {
   serviceProviderId: string;
   clientId: string;
-  projectDescription: string;
-  projectBudget: number;
+  clientProjectDetails: {
+    projectDescription: string;
+    projectBudget: number;
+  };
   projectTargetDate:
-    | "Within the next few days"
-    | "Within the next week"
-    | "In a month or more"
-    | "Not sure yet";
+    | "WITHIN_NEXT_FEW_DAYS"
+    | "WITHIN_NEXT_WEEK"
+    | "IN_A_MONTH_OR_MORE"
+    | "NOT_SURE_YET";
   projectLocation: Location;
 }
