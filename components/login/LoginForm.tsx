@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import { Input } from "../ui/input";
 import Link from "next/link";
-import "react-phone-number-input/style.css";
-import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import axios from "axios";
 import Image from "next/image";
 import { Button } from "../ui/button";
@@ -12,6 +10,7 @@ import { IoMailOutline, IoEyeOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { BACKEND_URL } from "@/constants/connection";
+import axiosInstance from "@/utils/axiosInstance";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -53,7 +52,10 @@ const LoginForm = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post(`${BACKEND_URL}auth/login`, user);
+      const response = await axiosInstance.post(
+        `${BACKEND_URL}auth/login`,
+        user
+      );
       console.log("resposne :;", response);
       toast.success(response.data.message || "Login successful!");
       router.push("/");
