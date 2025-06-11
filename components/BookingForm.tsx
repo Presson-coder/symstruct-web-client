@@ -16,10 +16,13 @@ import { useSubmitBooking } from "@/hooks/useSubmitBooking";
 import { GOOGLE_API_KEY } from "@/constants/connection";
 import { RootState } from "@/store";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const libraries = ["places"];
 
-const BookingForm = () => {
+const BookingForm = ({ ownerId }: { ownerId: string }) => {
+  const router = useRouter();
   const { loading, submitBooking } = useSubmitBooking();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: GOOGLE_API_KEY || "",
@@ -27,8 +30,8 @@ const BookingForm = () => {
   });
   const userId = useSelector((state: RootState) => state.auth.user?._id);
   const [bookingData, setBookingData] = useState<ClientProject>({
-    serviceProviderId: "",
-    clientId: userId || "",
+    serviceProviderId: ownerId,
+    clientId: userId ?? "",
     clientProjectDetails: { projectDescription: "", projectBudget: 0 },
     projectTargetDate: "WITHIN_NEXT_FEW_DAYS",
     projectLocation: {
@@ -41,6 +44,57 @@ const BookingForm = () => {
   });
 
   console.log("BookingForm rendered with bookingData ::", bookingData);
+
+  const handleValidate = () => {
+    if (!bookingData.clientProjectDetails.projectDescription) {
+      toast.error("Please enter a project description.");
+      return false;
+    }
+    if (bookingData.clientProjectDetails.projectBudget <= 0) {
+      toast.error("Please enter a valid project budget.");
+      return false;
+    }
+    if (!bookingData.projectLocation.lat || !bookingData.projectLocation.lng) {
+      toast.error("Please select a valid project location on the map.");
+      return false;
+    }
+    if (!bookingData.projectTargetDate) {
+      toast.error("Please select a project target date.");
+      return false;
+    }
+    if (!bookingData.clientId) {
+      toast.error("Please log in to book a service provider.");
+      router.push("/login");
+      return false;
+    }
+    return true;
+  };
+  
+  const handleSubmit = async (e: React.FormEvent) => {
+    if (!handleValidate()) return;
+    e.preventDefault();
+    if (loading) return;
+
+    try {
+      await submitBooking(bookingData);
+      setBookingData({
+        serviceProviderId: ownerId,
+        clientId: userId ?? "",
+        clientProjectDetails: { projectDescription: "", projectBudget: 0 },
+        projectTargetDate: "WITHIN_NEXT_FEW_DAYS",
+        projectLocation: {
+          lat: 0,
+          lng: 0,
+          city: "",
+          country: "",
+          addressLine1: "",
+        },
+      });
+    } catch (error) {
+      toast.error("Failed to submit booking. Please try again.");
+      console.error("Error submitting booking:", error);
+    }
+  };
 
   const onBookingDataChange = (data: ClientProject) => {
     setBookingData(data);
@@ -98,6 +152,24 @@ const BookingForm = () => {
   return (
     <div>
       <div>
+        <div className="mb-4 w-full">
+          <label className="block text-sm font-medium mb-2">
+            Project Location
+          </label>
+          <div className="w-full relative h-56">
+            {isLoaded ? (
+              <Map
+                locationCoordinates={mapCoordinates}
+                onLocationChange={handleMapClick}
+                onPlaceSelect={handlePlaceSelect}
+              />
+            ) : (
+              <div className="h-64 bg-gray-200 flex items-center justify-center">
+                Loading map...
+              </div>
+            )}
+          </div>
+        </div>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">
             Project Description
@@ -168,30 +240,15 @@ const BookingForm = () => {
             min={0}
           />
         </div>
-        <div className="mb-4 w-full">
-          <label className="block text-sm font-medium mb-2">
-            Project Location
-          </label>
-          <div className="w-full relative h-56">
-            {isLoaded ? (
-              <Map
-                locationCoordinates={mapCoordinates}
-                onLocationChange={handleMapClick}
-                onPlaceSelect={handlePlaceSelect}
-              />
-            ) : (
-              <div className="h-64 bg-gray-200 flex items-center justify-center">
-                Loading map...
-              </div>
-            )}
-          </div>
-        </div>
+
         <Button
           // type="submit"
           // variant="solid"
+          onClick={handleSubmit}
+          disabled={loading}
           className="bg-black text-white hover:bg-gray-800 w-full"
         >
-          Submit
+          {loading ? "Submitting..." : "Submit"}
         </Button>
       </div>
     </div>

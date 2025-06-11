@@ -263,7 +263,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         >
           <div className="p-6">
             <h2 className="text-2xl font-semibold mb-4">Get In Touch</h2>
-            <BookingForm />
+            <BookingForm ownerId={project?.owner?._id} />
           </div>
         </Dialog>
       )}

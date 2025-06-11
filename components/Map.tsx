@@ -85,7 +85,7 @@ const Map: React.FC<MapProps> = ({
   };
 
   return (
-    <div style={{ position: "relative", height: "100%", width: "100%" }}>
+    <div style={{ position: "relative", height: "100%", width: "100%", borderRadius: "12px", overflow: "hidden" }}>
       <input
         id="venue-search"
         type="text"
