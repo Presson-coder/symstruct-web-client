@@ -11,9 +11,12 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { BACKEND_URL } from "@/constants/connection";
 import axiosInstance from "@/utils/axiosInstance";
+import { useDispatch } from "react-redux";
+import { login } from "@/store/authSlice";
 
 const LoginForm = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -43,7 +46,6 @@ const LoginForm = () => {
     return valid;
   };
 
-  console.log('user :>> ', user);
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!handleValidation()) {
@@ -56,9 +58,15 @@ const LoginForm = () => {
         `${BACKEND_URL}auth/login`,
         user
       );
-      console.log("resposne :;", response);
-      toast.success(response.data.message || "Login successful!");
-      router.push("/");
+      if (response.status === 200) {
+        toast.success(response.data.message || "Login successful!");
+        dispatch(
+          login({
+            user: response.data.user,
+          })
+        );
+        router.push("/");
+      }
     } catch (err) {
       if (axios.isAxiosError(err)) {
         const errorMessage =
