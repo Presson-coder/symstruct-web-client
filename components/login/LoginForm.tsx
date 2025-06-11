@@ -73,8 +73,8 @@ const LoginForm = () => {
   return (
     <div>
       <div>
-        <div className="relative flex min-h-screen items-center justify-center bg-[url('/registerHero.jpg')] bg-cover bg-center bg-no-repeat px-6 py-10 dark:bg-[#060818] sm:px-16">
-          <div className="absolute inset-0 bg-black/60 z-0" />
+        <div className="relative flex min-h-screen items-center justify-center bg-[url('/loginHero.jpg')] bg-cover bg-center bg-no-repeat px-6 py-10 dark:bg-[#060818] sm:px-16">
+          <div className="absolute inset-0 bg-black/70 z-0" />
           <div className="w-full flex flex-col md:flex-row items-center justify-center md:justify-around relative z-10">
             <div className="flex flex-col items-center justify-center gap-4 md:mb-0">
               <Image
