@@ -369,32 +369,48 @@ const Navbar = () => {
                   Contact
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/login"
-                  className={
-                    currentPage === "login"
-                      ? "block py-2 px-3 text-white bg-orange-blue rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
-                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
-                  }
-                  onClick={closeMenu}
-                >
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/register"
-                  className={
-                    currentPage === "register"
-                      ? "block py-2 px-3 text-white bg-orange-blue rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
-                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
-                  }
-                  onClick={closeMenu}
-                >
-                  Register
-                </Link>
-              </li>
+              {isHydrated ? (
+                isLoggedIn ? (
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="block py-2 px-3 text-black rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
+                    >
+                      <IoLogOutOutline className="inline mr-1" />
+                      Logout
+                    </button>
+                  </li>
+                ) : (
+                  <>
+                    <li>
+                      <Link
+                        href="/login"
+                        className={
+                          currentPage === "login"
+                            ? "block py-2 px-3 text-white bg-orange-blue rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
+                            : "block py-2 px-3 text-black rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
+                        }
+                        onClick={closeMenu}
+                      >
+                        Login
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/register"
+                        className={
+                          currentPage === "register"
+                            ? "block py-2 px-3 text-white bg-orange-blue rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
+                            : "block py-2 px-3 text-black rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
+                        }
+                        onClick={closeMenu}
+                      >
+                        Register
+                      </Link>
+                    </li>
+                  </>
+                )
+              ) : null}
             </ul>
           </div>
         </div>
