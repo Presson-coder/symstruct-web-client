@@ -67,7 +67,7 @@ const RegisterForm = () => {
                 className="z-10"
               />
               <div>
-                <h1 className="text-lg md:text-xl font-semibold capitalize text-white dark:text-white">
+                <h1 className="text-lg hidden md:flex md:text-xl font-semibold capitalize text-white dark:text-white">
                   Find and Hire the Best Contractors in Zimbabwe
                 </h1>
               </div>
