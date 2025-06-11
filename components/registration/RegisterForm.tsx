@@ -7,6 +7,8 @@ import PhoneInput from "react-phone-number-input";
 import axios from "axios";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { FaLock } from "react-icons/fa"; 
+import { IoMailOutline } from "react-icons/io5";
 
 const RegisterForm = () => {
   const [user, setUser] = useState({
@@ -152,11 +154,11 @@ const RegisterForm = () => {
                           onChange={handleChange}
                           onBlur={(e) => handleEmailValidation(e.target.value)}
                           placeholder="Enter Email"
-                          className="border border-gray-500  placeholder:text-white-dark"
+                          className="border border-gray-500 ps-10 placeholder:text-white-dark"
                           required
                         />
                         <span className="absolute start-4 top-1/2 -translate-y-1/2">
-                          {/* <IconMail fill={true} /> */}
+                          <IoMailOutline />
                         </span>
                       </div>
                       <span className="text-sm text-red-500">{emailError}</span>
@@ -170,11 +172,11 @@ const RegisterForm = () => {
                           name="password"
                           onChange={handleChange}
                           placeholder="Enter Password"
-                          className="border border-gray-500  placeholder:text-white-dark"
+                          className="border border-gray-500 ps-10 placeholder:text-white-dark"
                           required
                         />
                         <span className="absolute start-4 top-1/2 -translate-y-1/2">
-                          {/* <IconLockDots fill={true} /> */}
+                          <FaLock />
                         </span>
                       </div>
                     </div>
@@ -187,11 +189,11 @@ const RegisterForm = () => {
                           name="confirmPassword"
                           onChange={handleChange}
                           placeholder="Confirm Password"
-                          className="border border-gray-500  placeholder:text-white-dark"
+                          className="border border-gray-500 ps-10 placeholder:text-white-dark"
                           required
                         />
                         <span className="absolute start-4 top-1/2 -translate-y-1/2">
-                          {/* <IconLockDots fill={true} /> */}
+                          <FaLock />
                         </span>
                       </div>
                     </div>
