@@ -14,6 +14,8 @@ import { useLoadScript } from "@react-google-maps/api";
 import { ClientProject } from "@/types";
 import { useSubmitBooking } from "@/hooks/useSubmitBooking";
 import { GOOGLE_API_KEY } from "@/constants/connection";
+import { RootState } from "@/store";
+import { useSelector } from "react-redux";
 
 const libraries = ["places"];
 
@@ -23,9 +25,10 @@ const BookingForm = () => {
     googleMapsApiKey: GOOGLE_API_KEY || "",
     libraries: libraries as unknown as Library[],
   });
+  const userId = useSelector((state: RootState) => state.auth.user?._id);
   const [bookingData, setBookingData] = useState<ClientProject>({
     serviceProviderId: "",
-    clientId: "",
+    clientId: userId || "",
     projectDescription: "",
     projectBudget: 0,
     projectTargetDate: "Within the next few days",

@@ -19,6 +19,10 @@ import { FaBookmark } from "react-icons/fa";
 import BookingForm from "./BookingForm";
 import { getProjectsByServiceProvider } from "@/lib/getProjects";
 import MoreProjectsByServiceProvider from "./MoreProjectsByServiceProvider";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children: React.ReactElement },
@@ -32,6 +36,8 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+  const router = useRouter();
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
   const [open, setOpen] = useState(false);
   const [bookingFormOpen, setBookingFormOpen] = useState(false);
   const [moreProjectsByServiceProvider, setMoreProjectsByServiceProvider] =
@@ -57,6 +63,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
   console.log("ProjectCard rendered with project ::", project);
   const handleBookingFormOpen = () => {
+    if(!isLoggedIn){
+      toast.error("Please log in to book.");
+      router.push("/login");
+      return;
+    }
     setBookingFormOpen(true);
   };
 
