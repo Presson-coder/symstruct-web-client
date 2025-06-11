@@ -16,6 +16,7 @@ export const useSubmitBooking = () => {
           response.data.message || "Booking submitted successfully!"
         );
         setLoading(false);
+        return response;
       })
       .catch((error) => {
         setLoading(false);
@@ -27,6 +28,7 @@ export const useSubmitBooking = () => {
         } else {
           toast.error("An unexpected error occurred.");
         }
+        throw error;
       });
   };
 

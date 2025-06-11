@@ -43,9 +43,11 @@ const BookingForm = ({ ownerId }: { ownerId: string }) => {
     },
   });
 
-  console.log("BookingForm rendered with bookingData ::", bookingData);
-
   const handleValidate = () => {
+    if(bookingData.serviceProviderId === bookingData.clientId) {
+      toast.error("You cannot book yourself as a service provider.");
+      return false;
+    }
     if (!bookingData.clientProjectDetails.projectDescription) {
       toast.error("Please enter a project description.");
       return false;
@@ -69,7 +71,9 @@ const BookingForm = ({ ownerId }: { ownerId: string }) => {
     }
     return true;
   };
-  
+
+  console.log("BookingForm rendered with bookingData :::", bookingData);
+
   const handleSubmit = async (e: React.FormEvent) => {
     if (!handleValidate()) return;
     e.preventDefault();
@@ -246,7 +250,7 @@ const BookingForm = ({ ownerId }: { ownerId: string }) => {
           // variant="solid"
           onClick={handleSubmit}
           disabled={loading}
-          className="bg-black text-white hover:bg-gray-800 w-full"
+          className="bg-black text-white hover:bg-gray-800 w-full cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "Submitting..." : "Submit"}
         </Button>
