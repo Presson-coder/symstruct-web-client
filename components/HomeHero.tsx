@@ -6,10 +6,10 @@ export default function HomeHero() {
   return (
     <div className="grid grid-cols-1 items-center text-center mb-10 ">
       <div>
-        <span className="loading loading-bars loading-lg text-orange-400"></span>
+        <span className="loading loading-bars loading-lg text-orange-500"></span>
       </div>
       <h4 className="font-semibold lg:leading-normal leading-normal text-4xl lg:text-5xl mb-5 text-white">
-        <span className="text-orange-400">
+        <span className="text-orange-500">
           Accredited Construction Companies{" "}
         </span>{" "}
         <br /> and professionals for
@@ -34,7 +34,7 @@ export default function HomeHero() {
           ]}
           wrapper="span"
           speed={10}
-          className="typewrite text-orange-400"
+          className="typewrite text-orange-500"
           repeat={Infinity}
           cursor={false}
         />

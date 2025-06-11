@@ -92,15 +92,15 @@ const Navbar = () => {
         <div>
           <Image
             className={`${isScrolled ? "hidden" : "flex"}`}
-            src="/white_logo.png"
+            src="/logo.png"
             alt="logo"
-            width={150}
+            width={100}
             height={100}
           />
 
           <Image
             className={`${isScrolled ? "flex " : "hidden"}`}
-            src="/brown_logo.png"
+            src="/logo.png"
             alt="logo"
             width={50}
             height={50}
