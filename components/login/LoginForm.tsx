@@ -18,7 +18,6 @@ const LoginForm = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
-    role: "client",
   });
   const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState("");
@@ -45,6 +44,7 @@ const LoginForm = () => {
     return valid;
   };
 
+  console.log('user :>> ', user);
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!handleValidation()) {
@@ -171,7 +171,7 @@ const LoginForm = () => {
                       className="btn btn-gradient !mt-6 w-full border-0 uppercase shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)]"
                       disabled={loading}
                     >
-                      {loading ? "Loading..." : "Register"}
+                      {loading ? "Loading..." : "Login"}
                     </Button>
                   </form>
                   <div className="text-center dark:text-white pt-4">
