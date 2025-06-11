@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Input } from "../ui/input";
 import Link from "next/link";
 import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import axios from "axios";
 import Image from "next/image";
 import { Button } from "../ui/button";
@@ -60,8 +60,7 @@ const RegisterForm = () => {
       valid = false;
     }
 
-    const digits = user.phone.replace(/\D/g, "");
-    if (digits.length < 10) {
+    if (!user.phone || !isValidPhoneNumber(user.phone)) {
       setPhoneError("Please enter a valid phone number");
       valid = false;
     }
