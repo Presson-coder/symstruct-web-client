@@ -82,8 +82,10 @@ const RegisterForm = () => {
     }
 
     try {
+      setLoading(true);
       const { confirmPassword, ...payload } = user;
       const response = await axios.post(`${BACKEND_URL}auth/register`, payload);
+      console.log('resposne :;', response)
       toast.success(response.data.message || "Registration successful!");
       router.push("/login");
     } catch (err) {
