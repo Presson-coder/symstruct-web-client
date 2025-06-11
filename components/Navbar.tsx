@@ -268,8 +268,8 @@ const Navbar = () => {
                   href="#home"
                   className={
                     currentPage === "home"
-                      ? "block py-2 px-3 text-white bg-teal-blue rounded md:bg-transparent md:text-teal-700 md:p-0 dark:text-white md:dark:text-teal-500"
-                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-teal-700 md:p-0 dark:text-white md:dark:text-teal-500"
+                      ? "block py-2 px-3 text-white bg-orange-blue rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
+                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
                   }
                   aria-current="page"
                   onClick={handleScroll}
@@ -282,8 +282,8 @@ const Navbar = () => {
                   href="#about"
                   className={
                     currentPage === "about"
-                      ? "block py-2 px-3 text-white bg-teal-blue rounded md:bg-transparent md:text-teal-700 md:p-0 dark:text-white md:dark:text-teal-500"
-                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-teal-700 md:p-0 dark:text-white md:dark:text-teal-500"
+                      ? "block py-2 px-3 text-white bg-orange-blue rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
+                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
                   }
                   onClick={closeMenu}
                 >
@@ -295,8 +295,8 @@ const Navbar = () => {
                   href="#shop-online"
                   className={
                     currentPage === "shop-online"
-                      ? "block py-2 px-3 text-white bg-teal-blue rounded md:bg-transparent md:text-teal-700 md:p-0 dark:text-white md:dark:text-teal-500"
-                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-teal-700 md:p-0 dark:text-white md:dark:text-teal-500"
+                      ? "block py-2 px-3 text-white bg-orange rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
+                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
                   }
                   onClick={closeMenu}
                 >
@@ -308,8 +308,8 @@ const Navbar = () => {
                   href="#contact"
                   className={
                     currentPage === "contact"
-                      ? "block py-2 px-3 text-white bg-teal-blue rounded md:bg-transparent md:text-teal-700 md:p-0 dark:text-white md:dark:text-teal-500"
-                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-teal-700 md:p-0 dark:text-white md:dark:text-teal-500"
+                      ? "block py-2 px-3 text-white bg-orange-blue rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
+                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
                   }
                   onClick={closeMenu}
                 >
@@ -321,12 +321,25 @@ const Navbar = () => {
                   href="/login"
                   className={
                     currentPage === "login"
-                      ? "block py-2 px-3 text-white bg-teal-blue rounded md:bg-transparent md:text-teal-700 md:p-0 dark:text-white md:dark:text-teal-500"
-                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-teal-700 md:p-0 dark:text-white md:dark:text-teal-500"
+                      ? "block py-2 px-3 text-white bg-orange-blue rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
+                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
                   }
                   onClick={closeMenu}
                 >
                   Login
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/register"
+                  className={
+                    currentPage === "register"
+                      ? "block py-2 px-3 text-white bg-orange-blue rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
+                      : "block py-2 px-3 text-black rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500"
+                  }
+                  onClick={closeMenu}
+                >
+                  Register
                 </Link>
               </li>
             </ul>
