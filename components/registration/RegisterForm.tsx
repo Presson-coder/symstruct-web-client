@@ -7,10 +7,14 @@ import PhoneInput from "react-phone-number-input";
 import axios from "axios";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { FaLock } from "react-icons/fa"; 
+import { FaLock } from "react-icons/fa";
 import { IoMailOutline } from "react-icons/io5";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { BACKEND_URL } from "@/constants/connection";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -18,37 +22,78 @@ const RegisterForm = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    role: "client",
   });
   const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState("");
-  const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handlePhoneChange = (phone: string) => {
-    setUser({ ...user, phone });
+  const handlePhoneChange = (phone: string | undefined) => {
+    setUser({ ...user, phone: phone || "" });
   };
 
-  const handleEmailValidation = (email: string) => {
-    // Add your validation logic here
-    setEmailError(""); // or set error message
-  };
+  const handleValidation = (): boolean => {
+    let valid = true;
+    setEmailError("");
+    setPhoneError("");
+    setNameError("");
+    setPasswordError("");
 
-  const handlePhoneNumberValidation = (phone: string) => {
-    // Add your validation logic here
-    setPhoneNumberError(""); // or set error message
+    if (!user.firstName.trim() || !user.lastName.trim()) {
+      setNameError("First and last name are required");
+      valid = false;
+    }
+
+    const digits = user.phone.replace(/\D/g, "");
+    if (digits.length < 10) {
+      setPhoneError("Please enter a valid phone number");
+      valid = false;
+    }
+
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPattern.test(user.email)) {
+      setEmailError("Please enter a valid email address");
+      valid = false;
+    }
+
+    if (user.password.length < 6) {
+      setPasswordError("Password must be at least 6 characters");
+      valid = false;
+    }
+
+    if (user.password !== user.confirmPassword) {
+      setPasswordError("Passwords do not match");
+      valid = false;
+    }
+
+    return valid;
   };
 
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
+    if (!handleValidation()) {
+      return;
+    }
+
     try {
-      await axios.post("/api/register", user);
-      // handle success (e.g., redirect or show message)
+      const { confirmPassword, ...payload } = user;
+      const response = await axios.post(`${BACKEND_URL}auth/register`, payload);
+      toast.success(response.data.message || "Registration successful!");
+      router.push("/login");
     } catch (err) {
-      // handle error (e.g., show error message)
+      if (axios.isAxiosError(err)) {
+        const errorMessage =
+          err.response?.data?.message || "Registration failed";
+        toast.error(errorMessage);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     } finally {
       setLoading(false);
     }
@@ -66,7 +111,14 @@ const RegisterForm = () => {
                 alt="Logo"
                 width={100}
                 height={100}
-                className="z-10"
+                className="z-10 md:flex hidden"
+              />
+              <Image
+                src="/logo.png"
+                alt="Logo"
+                width={80}
+                height={80}
+                className="z-10 md:hidden flex"
               />
               <div>
                 <h1 className="text-lg hidden md:flex md:text-xl font-semibold capitalize text-white dark:text-white">
@@ -92,40 +144,40 @@ const RegisterForm = () => {
                     className="space-y-5 dark:text-white"
                     autoComplete="off"
                   >
-                    <div>
-                      <label htmlFor="Name">First Name</label>
-                      <div className="relative text-white-dark">
-                        <Input
-                          id="Name"
-                          name="firstName"
-                          onChange={handleChange}
-                          type="text"
-                          placeholder="Enter Name"
-                          className="border border-gray-500  placeholder:text-white-dark"
-                          required
-                        />
-                        <span className="absolute start-4 top-1/2 -translate-y-1/2">
-                          {/* <IconUser fill={true} /> */}
-                        </span>
+                    <div className="w-full flex flex-col md:flex-row justify-between md:gap-4 gap-5">
+                      <div className="w-full md:w-1/2">
+                        <label htmlFor="Name">First Name</label>
+                        <div className="relative text-white-dark">
+                          <Input
+                            id="Name"
+                            name="firstName"
+                            onChange={handleChange}
+                            type="text"
+                            placeholder="Enter Name"
+                            className="border border-gray-500  placeholder:text-white-dark"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div className="w-full md:w-1/2">
+                        <label htmlFor="LastName">Last Name</label>
+                        <div className="relative text-white-dark">
+                          <Input
+                            id="LastName"
+                            name="lastName"
+                            onChange={handleChange}
+                            type="text"
+                            placeholder="Enter Last Name"
+                            className="border border-gray-500  placeholder:text-white-dark"
+                            required
+                          />
+                          <span className="absolute start-4 top-1/2 -translate-y-1/2"></span>
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <label htmlFor="LastName">Last Name</label>
-                      <div className="relative text-white-dark">
-                        <Input
-                          id="LastName"
-                          name="lastName"
-                          onChange={handleChange}
-                          type="text"
-                          placeholder="Enter Last Name"
-                          className="border border-gray-500  placeholder:text-white-dark"
-                          required
-                        />
-                        <span className="absolute start-4 top-1/2 -translate-y-1/2">
-                          {/* <IconUser fill={true} /> */}
-                        </span>
-                      </div>
-                    </div>
+                    {nameError && (
+                      <p className="text-sm text-red-500">{nameError}</p>
+                    )}
                     <div>
                       <label htmlFor="Phone">Phone Number</label>
                       <div className="relative text-white-dark">
@@ -133,15 +185,14 @@ const RegisterForm = () => {
                           id="Phone"
                           name="phone"
                           onChange={handlePhoneChange}
-                          onBlur={() => handlePhoneNumberValidation(user.phone)}
                           placeholder="Enter Phone Number"
                           defaultCountry="ZW"
                           className="border border-gray-500 placeholder:text-white-dark rounded-sm p-1.5"
                           required
                         />
-                        <p className="text-sm text-red-500">
-                          {phoneNumberError}
-                        </p>
+                        {phoneError && (
+                          <p className="text-sm text-red-500">{phoneError}</p>
+                        )}
                       </div>
                     </div>
                     <div>
@@ -152,7 +203,6 @@ const RegisterForm = () => {
                           type="email"
                           name="email"
                           onChange={handleChange}
-                          onBlur={(e) => handleEmailValidation(e.target.value)}
                           placeholder="Enter Email"
                           className="border border-gray-500 ps-10 placeholder:text-white-dark"
                           required
@@ -161,7 +211,9 @@ const RegisterForm = () => {
                           <IoMailOutline />
                         </span>
                       </div>
-                      <span className="text-sm text-red-500">{emailError}</span>
+                      {emailError && (
+                        <p className="text-sm text-red-500">{emailError}</p>
+                      )}
                     </div>
                     <div>
                       <label htmlFor="Password">Password</label>
@@ -196,6 +248,9 @@ const RegisterForm = () => {
                           <FaLock />
                         </span>
                       </div>
+                      {passwordError && (
+                        <p className="text-sm text-red-500">{passwordError}</p>
+                      )}
                     </div>
                     <Button
                       type="submit"
