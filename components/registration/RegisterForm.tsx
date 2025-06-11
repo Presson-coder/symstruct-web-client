@@ -7,8 +7,8 @@ import PhoneInput from "react-phone-number-input";
 import axios from "axios";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { FaLock } from "react-icons/fa";
-import { IoMailOutline } from "react-icons/io5";
+import { FaLock, FaRegEyeSlash } from "react-icons/fa";
+import { IoMailOutline, IoEyeOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { BACKEND_URL } from "@/constants/connection";
@@ -29,6 +29,8 @@ const RegisterForm = () => {
   const [phoneError, setPhoneError] = useState("");
   const [nameError, setNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -36,6 +38,14 @@ const RegisterForm = () => {
 
   const handlePhoneChange = (phone: string | undefined) => {
     setUser({ ...user, phone: phone || "" });
+  };
+
+  const handleToggleShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const handleToggleShowConfirmPassword = () => {
+    setShowConfirmPassword((prev) => !prev);
   };
 
   const handleValidation = (): boolean => {
@@ -85,7 +95,7 @@ const RegisterForm = () => {
       setLoading(true);
       const { confirmPassword, ...payload } = user;
       const response = await axios.post(`${BACKEND_URL}auth/register`, payload);
-      console.log('resposne :;', response)
+      console.log("resposne :;", response);
       toast.success(response.data.message || "Registration successful!");
       router.push("/login");
     } catch (err) {
@@ -222,7 +232,7 @@ const RegisterForm = () => {
                       <div className="relative text-white-dark">
                         <Input
                           id="Password"
-                          type="password"
+                          type={showPassword ? "text" : "password"}
                           name="password"
                           onChange={handleChange}
                           placeholder="Enter Password"
@@ -232,6 +242,13 @@ const RegisterForm = () => {
                         <span className="absolute start-4 top-1/2 -translate-y-1/2">
                           <FaLock />
                         </span>
+                        <button
+                          type="button"
+                          onClick={handleToggleShowPassword}
+                          className="absolute end-4 top-1/2 -translate-y-1/2"
+                        >
+                          {showPassword ? <IoEyeOutline /> : <FaRegEyeSlash />}
+                        </button>
                       </div>
                     </div>
                     <div>
@@ -239,7 +256,7 @@ const RegisterForm = () => {
                       <div className="relative text-white-dark">
                         <Input
                           id="ConfirmPassword"
-                          type="password"
+                          type={showConfirmPassword ? "text" : "password"}
                           name="confirmPassword"
                           onChange={handleChange}
                           placeholder="Confirm Password"
@@ -249,6 +266,17 @@ const RegisterForm = () => {
                         <span className="absolute start-4 top-1/2 -translate-y-1/2">
                           <FaLock />
                         </span>
+                        <button
+                          type="button"
+                          onClick={handleToggleShowConfirmPassword}
+                          className="absolute end-4 top-1/2 -translate-y-1/2"
+                        >
+                          {showConfirmPassword ? (
+                            <IoEyeOutline />
+                          ) : (
+                            <FaRegEyeSlash />
+                          )}
+                        </button>
                       </div>
                       {passwordError && (
                         <p className="text-sm text-red-500">{passwordError}</p>
