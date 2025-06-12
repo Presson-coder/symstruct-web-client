@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ClientProject } from "@/types";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { BOOKING_URL } from "@/constants/connection";
+import { BACKEND_URL } from "@/constants/connection";
 
 export const useSubmitBooking = () => {
   const [loading, setLoading] = useState(false);
@@ -10,7 +10,7 @@ export const useSubmitBooking = () => {
   const submitBooking = (project: ClientProject) => {
     setLoading(true);
     axios
-      .post(`${BOOKING_URL}booking`, project)
+      .post(`${BACKEND_URL}bookings-proxy`, project)
       .then((response) => {
         toast.success(
           response.data.message || "Booking submitted successfully!"

@@ -44,8 +44,12 @@ const BookingForm = ({ ownerId }: { ownerId: string }) => {
   });
 
   const handleValidate = () => {
-    if(bookingData.serviceProviderId === bookingData.clientId) {
+    if (bookingData.serviceProviderId === bookingData.clientId) {
       toast.error("You cannot book yourself as a service provider.");
+      return false;
+    }
+    if (!bookingData.projectLocation.lat || !bookingData.projectLocation.lng) {
+      toast.error("Please select a valid project location on the map.");
       return false;
     }
     if (!bookingData.clientProjectDetails.projectDescription) {
@@ -56,10 +60,7 @@ const BookingForm = ({ ownerId }: { ownerId: string }) => {
       toast.error("Please enter a valid project budget.");
       return false;
     }
-    if (!bookingData.projectLocation.lat || !bookingData.projectLocation.lng) {
-      toast.error("Please select a valid project location on the map.");
-      return false;
-    }
+
     if (!bookingData.projectTargetDate) {
       toast.error("Please select a project target date.");
       return false;
