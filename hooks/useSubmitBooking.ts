@@ -3,13 +3,14 @@ import { ClientProject } from "@/types";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { BACKEND_URL } from "@/constants/connection";
+import axiosInstance from "@/utils/axiosInstance";
 
 export const useSubmitBooking = () => {
   const [loading, setLoading] = useState(false);
 
   const submitBooking = (project: ClientProject) => {
     setLoading(true);
-    axios
+    axiosInstance
       .post(`${BACKEND_URL}bookings-proxy`, project)
       .then((response) => {
         toast.success(
