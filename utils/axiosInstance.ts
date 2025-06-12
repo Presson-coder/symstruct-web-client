@@ -12,7 +12,7 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      window.location.href = "/";
+      window.dispatchEvent(new Event("app-logout"));
     }
     return Promise.reject(error);
   }
