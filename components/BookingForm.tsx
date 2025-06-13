@@ -21,7 +21,13 @@ import { useRouter } from "next/navigation";
 
 const libraries = ["places"];
 
-const BookingForm = ({ ownerId }: { ownerId: string }) => {
+const BookingForm = ({
+  ownerId,
+  handleBookingFormClose,
+}: {
+  ownerId: string;
+  handleBookingFormClose: () => void;
+}) => {
   const router = useRouter();
   const { loading, submitBooking } = useSubmitBooking();
   const { isLoaded } = useLoadScript({
@@ -95,6 +101,7 @@ const BookingForm = ({ ownerId }: { ownerId: string }) => {
           addressLine1: "",
         },
       });
+      handleBookingFormClose();
     } catch (error) {
       toast.error("Failed to submit booking. Please try again.");
       console.error("Error submitting booking:", error);
@@ -175,6 +182,50 @@ const BookingForm = ({ ownerId }: { ownerId: string }) => {
             )}
           </div>
         </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <div className="">
+            <label className="block text-sm font-medium mb-2">
+              Addres Line 1
+            </label>
+            <input
+              type="text"
+              className="w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Enter address line 1"
+              value={bookingData.projectLocation.addressLine1}
+              onChange={(e) =>
+                onBookingDataChange({
+                  ...bookingData,
+                  projectLocation: {
+                    ...bookingData.projectLocation,
+                    addressLine1: e.target.value,
+                  },
+                })
+              }
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Addres Line 2 (optional)
+            </label>
+            <input
+              type="text"
+              className="w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Enter address line 2 (optional)"
+              value={bookingData.projectLocation.city}
+              onChange={(e) =>
+                onBookingDataChange({
+                  ...bookingData,
+                  projectLocation: {
+                    ...bookingData.projectLocation,
+                    city: e.target.value,
+                  },
+                })
+              }
+            />
+          </div>
+        </div>
+
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">
             Project Description

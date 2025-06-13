@@ -13,11 +13,13 @@ export const useSubmitBooking = () => {
     axiosInstance
       .post(`${BACKEND_URL}bookings-proxy`, project)
       .then((response) => {
-        toast.success(
-          response.data.message || "Booking submitted successfully!"
-        );
-        setLoading(false);
-        return response;
+        if (response.status === 202) {
+          toast.success(
+            response.data.message || "Booking submitted successfully!"
+          );
+          setLoading(false);
+          return response;
+        }
       })
       .catch((error) => {
         setLoading(false);
